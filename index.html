@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برامج بلس</title>
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#020617;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+overflow-x:hidden;
+}
+
+.stars{position:fixed;width:100%;height:100%;z-index:-1;}
+.star{position:absolute;background:white;border-radius:50%;animation:move 12s linear infinite,twinkle 3s alternate infinite;}
+@keyframes move{0%{transform:translateY(-10px)}100%{transform:translateY(100vh)}}
+@keyframes twinkle{0%{opacity:0.1}100%{opacity:1}}
+
+.header-box{
+margin-top:20px;padding:15px 20px;border-radius:20px;font-weight:bold;
+background:linear-gradient(45deg,#38bdf8,#a855f7);
+box-shadow:0 0 25px #38bdf8,0 0 25px #a855f7;
+animation:glow 2s infinite alternate;text-align:center;
+position:relative;
+}
+@keyframes glow{0%{box-shadow:0 0 10px #38bdf8}50%{box-shadow:0 0 25px #a855f7}100%{box-shadow:0 0 10px #38bdf8}}
+
+.channel-box{display:flex;align-items:center;gap:8px;margin-top:5px;justify-content:center;font-size:13px;color:#cbd5f5;flex-wrap:wrap;}
+.channel-img{width:28px;height:28px;border-radius:50%;box-shadow:0 0 5px #38bdf8;animation:channelGlow 2.5s infinite alternate;cursor:pointer;}
+@keyframes channelGlow{0%{box-shadow:0 0 3px #38bdf8;}50%{box-shadow:0 0 12px #a855f7;}100%{box-shadow:0 0 3px #38bdf8;}}
+
+.container{width:95%;max-width:600px;margin-top:15px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:15px;}
+.app-card{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#111827;padding:10px;border-radius:15px;position:relative;overflow:hidden;transition:all 0.5s ease;height:150px;text-align:center;}
+.app-card::before{content:'';position:absolute;width:300%;height:300%;background:radial-gradient(circle,#38bdf855,#a855f755,#f472b655,#22c55e55);animation:fluidGlow 6s ease-in-out infinite;top:-100%;left:-100%;z-index:0;border-radius:50%;}
+@keyframes fluidGlow{0%{transform:translate(0,0);}25%{transform:translate(50%,20%);}50%{transform:translate(20%,50%);}75%{transform:translate(40%,10%);}100%{transform:translate(0,0);}}
+
+.app-card img{width:60px;height:60px;border-radius:15px;position:relative;z-index:1;margin-bottom:5px;}
+.app-name{font-size:16px;font-weight:bold;color:white;position:relative;z-index:1;}
+.app-desc{font-size:11px;color:#94a3b8;margin-top:3px;position:relative;z-index:1;}
+.app-desc a{color:#38bdf8;text-decoration:none;font-weight:bold;}
+
+.install-btn{background:#38bdf8;border:none;padding:7px 12px;border-radius:10px;font-weight:bold;color:white;cursor:pointer;position:relative;z-index:2;}
+.install-done{width:30px;height:30px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:16px;cursor:pointer;}
+
+.bottom-text{width:95%;max-width:600px;text-align:center;font-size:12px;color:#94a3b8;margin:8px auto;}
+.bottom-text a{color:#38bdf8;text-decoration:none;font-weight:bold;}
+
+.telegram-img{margin:20px 0;}
+.telegram-img img{width:60px;height:60px;border-radius:50%;box-shadow:0 0 15px #229ED9;cursor:pointer;}
+
+body,html{-webkit-user-select:none;user-select:none;}
+
+.install-box{
+backdrop-filter:blur(10px);
+background:rgba(17,24,39,0.7);
+border-radius:15px;padding:15px;width:90%;max-width:350px;text-align:center;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;
+animation:liquidGlow 3s infinite alternate;
+overflow:hidden;
+}
+@keyframes liquidGlow{
+0%{box-shadow:0 0 20px #38bdf8,0 0 40px #a855f7;}
+50%{box-shadow:0 0 30px #22c55e,0 0 50px #38bdf8;}
+100%{box-shadow:0 0 20px #38bdf8,0 0 40px #a855f7;}
+}
+
+.green-glow{background:#22c55e;color:white;box-shadow:0 0 20px #22c55e,0 0 40px #22c55e55,0 0 60px #22c55e44;transition:all 0.3s ease;}
+.translate-btn{position:absolute;top:5px;right:5px;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22c55e);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;box-shadow:0 0 10px #38bdf8;z-index:10000;}
+.translate-btn:hover{box-shadow:0 0 20px #38bdf8,0 0 30px #22c55e;}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- زر ترجمة رئيسي -->
+<div class="translate-btn" id="mainTranslate">🌐</div>
+
+<div class="header-box arabic-text">
+<span class="main-title arabic-text">برامج بلس موقعه على شهادة مجانية</span>
+<div class="channel-box">
+<img src="https://i.ibb.co/vCTxFYt1/image.png" class="channel-img" onclick="window.open('https://t.me/atraheebb','_blank')">
+<span class="channel-text arabic-text">قناة اترهيب الرسمية</span>
+</div>
+</div>
+
+<div class="container">
+
+<div class="app-card">
+<img src="https://i.ibb.co/b5zS2s7q/IMG-2965.png">
+<div class="app-name arabic-text">إنستا ريكرام</div>
+<div class="app-desc arabic-text">
+لتفعيل المميزات
+<a href="https://t.me/atraheeb7/104" target="_blank" class="arabic-text">اضغط هنا شاهد الشرح</a>
+</div>
+<button class="install-btn arabic-text" onclick="installApp(this,'https://github.com/atraheeb/REGRAM/releases/download/Y/manifest.plist')">تثبيت</button>
+</div>
+
+<div class="app-card">
+<img src="https://i.ibb.co/35MhcCJ3/IMG-2962.png">
+<div class="app-name arabic-text">يوتيوب بلس</div>
+<button class="install-btn arabic-text" onclick="installApp(this,'https://github.com/atraheeb/YouTube-/releases/download/R/manifest.plist')">تثبيت</button>
+</div>
+
+<div class="app-card">
+<img src="https://i.ibb.co/r2QNL8cY/IMG-2943.png">
+<div class="app-name arabic-text">سينمانا</div>
+<button class="install-btn arabic-text" onclick="installApp(this,'https://github.com/atraheeb/Cinemanahhh/releases/download/3/manifest.plist')">تثبيت</button>
+</div>
+
+<div class="app-card">
+<img src="https://i.ibb.co/tMXC8xfd/IMG-2963.png">
+<div class="app-name arabic-text">واتساب الذهبي</div>
+<button class="install-btn arabic-text" onclick="installApp(this,'https://github.com/atraheeb/Whatsapp-/releases/download/E/manifest.plist')">تثبيت</button>
+</div>
+
+</div>
+
+<div class="bottom-text arabic-text">
+مطوّر مؤسسة غير موثوق فيه
+<a href="https://t.me/atraheeb7/55" target="_blank" class="arabic-text">اضغط هنا شاهد الشرح</a>
+</div>
+
+<div class="telegram-img">
+<a href="https://t.me/atraheebb" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
+</a>
+</div>
+
+<script>
+let stars=document.getElementById("stars");
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.width=Math.random()*3+"px";
+s.style.height=s.style.width;
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+stars.appendChild(s);
+}
+
+let allowInstall=true;
+
+function installApp(btn, link){
+  if(!allowInstall) return;
+  allowInstall=false;
+  let parent = btn.parentElement;
+  btn.style.display="none";
+  let done = document.createElement("div");
+  done.className="install-done";
+  done.innerHTML="✔";
+  parent.appendChild(done);
+
+  let box=document.createElement("div");
+  box.className="install-box";
+  box.innerHTML=`
+    <div style="font-size:14px;margin-bottom:10px; position:relative;">
+      <button id="closeBox" style="
+        position:absolute; top:5px; left:5px;
+        background:#ff5555; border:none;
+        border-radius:50%; width:20px; height:20px;
+        font-weight:bold; color:white; cursor:pointer;">×</button>
+      <span class="box-text arabic-text">
+      عند تثبيت التطبيق قد يظهر لك<br>
+      <b>مطور مؤسسة غير موثوق فيه</b><br>
+      لحل المشكلة اقرأ الشرح أسفل الموقع
+      </span>
+      <button class="translate-btn" id="boxTranslate">🌐</button>
+    </div>
+    <button id="realInstall" class="arabic-text" style="
+      background:#38bdf8; border:none; padding:8px 15px;
+      border-radius:10px; font-weight:bold; color:white; cursor:pointer;">تثبيت الآن</button>
+  `;
+  document.body.appendChild(box);
+
+  document.getElementById("closeBox").onclick = function(){
+    box.remove();
+    done.remove();
+    btn.style.display="inline-block";
+    allowInstall=true;
+  }
+
+  document.getElementById("realInstall").onclick = function(){
+    this.classList.add("green-glow");
+    setTimeout(()=>{
+      box.remove();
+      done.remove();
+      btn.style.display="inline-block";
+      this.classList.remove("green-glow");
+      allowInstall=true;
+    },3000);
+    window.location.href="itms-services://?action=download-manifest&url="+link;
+  }
+
+  let translated=false;
+  document.getElementById("boxTranslate").onclick=function(){
+    translated=!translated;
+    let span = box.querySelector(".box-text");
+    let btnText = document.getElementById("realInstall");
+    if(translated){
+      span.innerHTML = "When installing the app, you may see<br><b>Untrusted Enterprise Developer</b><br>See the guide below to solve the issue";
+      btnText.innerHTML="Install Now";
+    } else {
+      span.innerHTML = "عند تثبيت التطبيق قد يظهر لك<br><b>مطور مؤسسة غير موثوق فيه</b><br>لحل المشكلة اقرأ الشرح أسفل الموقع";
+      btnText.innerHTML="تثبيت الآن";
+    }
+  }
+}
+
+let mainTranslated=false;
+document.getElementById("mainTranslate").onclick=function(){
+  mainTranslated=!mainTranslated;
+  document.querySelectorAll(".arabic-text").forEach(e=>{
+    if(mainTranslated){
+      if(e.tagName=="BUTTON"){
+        if(e.innerHTML=="تثبيت") e.innerHTML="Install";
+      } else if(e.classList.contains("main-title")){
+        e.innerHTML="ATRAHEB Plus Certified Free";
+      } else if(e.tagName=="DIV" && e.classList.contains("app-name")){
+        if(e.innerHTML=="إنستا ريكرام") e.innerHTML="Insta Regram";
+        if(e.innerHTML=="يوتيوب بلس") e.innerHTML="YouTube Plus";
+        if(e.innerHTML=="سينمانا") e.innerHTML="Cinemana";
+        if(e.innerHTML=="واتساب الذهبي") e.innerHTML="WhatsApp Gold";
+      } else if(e.tagName=="DIV" || e.tagName=="SPAN"){
+        if(e.classList.contains("channel-text")) e.innerHTML="Atraheeb Official Channel";
+        if(e.classList.contains("bottom-text")) e.innerHTML="Untrusted Enterprise Developer <a href='https://t.me/atraheeb7/55' target='_blank'>See guide</a>";
+      } else if(e.tagName=="A"){
+        if(e.innerHTML=="اضغط هنا شاهد الشرح") e.innerHTML="Click here to see guide";
+      }
+    } else {
+      if(e.tagName=="BUTTON"){
+        if(e.innerHTML=="Install") e.innerHTML="تثبيت";
+      } else if(e.classList.contains("main-title")){
+        e.innerHTML="برامج بلس موقعه على شهادة مجانية";
+      } else if(e.tagName=="DIV" && e.classList.contains("app-name")){
+        if(e.innerHTML=="Insta Regram") e.innerHTML="إنستا ريكرام";
+        if(e.innerHTML=="YouTube Plus") e.innerHTML="يوتيوب بلس";
+        if(e.innerHTML=="Cinemana") e.innerHTML="سينمانا";
+        if(e.innerHTML=="WhatsApp Gold") e.innerHTML="واتساب الذهبي";
+      } else if(e.tagName=="DIV" || e.tagName=="SPAN"){
+        if(e.classList.contains("channel-text")) e.innerHTML="قناة اترهيب الرسمية";
+        if(e.classList.contains("bottom-text")) e.innerHTML="مطوّر مؤسسة غير موثوق فيه <a href='https://t.me/atraheeb7/55' target='_blank'>اضغط هنا شاهد الشرح</a>";
+      } else if(e.tagName=="A"){
+        if(e.innerHTML=="Click here to see guide") e.innerHTML="اضغط هنا شاهد الشرح";
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
